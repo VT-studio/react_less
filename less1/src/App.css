@@ -1,3 +1,14 @@
 body{
-    background: azure;
+    /*background: ;*/
+}
+.container{
+    position: relative;
+    width: 966px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.arrived{
+    color: red;
 }

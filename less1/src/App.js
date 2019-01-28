@@ -8,6 +8,10 @@ import 'normalize.css';
 /*import my json file*/
 import names from './data/names';
 
+/*import components (property)*/
+import Users from './Users'
+
+
 console.log(names);
 
 
@@ -26,12 +30,24 @@ class NamesList extends Component{
 
     /*Импортим внешние данные */
     state = {
-        users: names
+        users: names,
+        value: true
     }
 
 
+    render = ()=>
+        <div className="wrap">
+            <h1>Hello</h1>
+            <input  onChange={this.filterUsers} type="text" name="SearchUser" id="" placeholder='search to user'/>
+            {
+                this.testF()
+            }
+        </div>
+
+
+
     filterUsers = (e) => {
-        console.log('TIC: ', e.target.value);
+        // console.log('TIC: ', e.target.value);
 
         let val = e.target.value.toLowerCase();
 
@@ -45,32 +61,52 @@ class NamesList extends Component{
         })
 
         this.setState({
-            users: filterData
+            users: filterData,
+            value: filterData.length == 0 ? false  :  true
         })
     }
 
-    render = ()=>
-        <div className="wrap">
-        <h1>Hello</h1>
-            <input  onChange={this.filterUsers} type="text" name="SearchUser" id="" placeholder='search to user'/>
-            {
-                this.testF()
-            }
-        </div>
-
 
     testF = () => {
-        const { users } = this.state
+        const { users, value } = this.state
 
-        return (
-            users.map((nameUser, key) => {
-                console.log(nameUser);
+
+            // return (
+            //     /* альтернатива Иф, если валуе не фолс, то выводим делаем следующее */
+            //     value && (
+            //             users.map((nameUser, key) => {
+            //                 // console.log(nameUser);
+            //                 return (
+            //                     <p key={nameUser.id}>{nameUser.name}</p>
+            //
+            //                 )
+            //             })
+            //
+            //     )
+            //
+            //
+            //
+            // )
+
+            if(value == true) {
                 return (
-                    <p key={nameUser.name}>{nameUser.name}</p>
+                    /*Импортируем компонент и передаем в проперти значения*/
+                    users.map( (nameUser, key) => <Users key = {key} user = {nameUser} />)
 
+                // users.map((nameUser, key) =>
+                // {
+                //     console.log(nameUser);
+                //     return (
+                //         <p key={nameUser.id}>{nameUser.name}</p>
+                //
+                //
+                //     )
+                // })
                 )
-            })
-        )
+            }else{
+                return (<p>Такого юзера нетc</p>)
+            }
+
 
     }
 
